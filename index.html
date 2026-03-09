@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OS Project - Student Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --sidebar-width: 300px;
+            --primary-color: #0f766e; /* Academic Teal */
+            --primary-hover: #115e59;
+            --bg-body: #f3f4f6;
+            --bg-white: #ffffff;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --border-color: #e5e7eb;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            height: 100vh;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            overflow: hidden;
+        }
+
+        /* --- SIDEBAR STYLING --- */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--bg-white);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        .brand {
+            padding: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+        }
+
+        .brand h2 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .brand span {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-group {
+            padding: 10px 0;
+        }
+
+        details {
+            cursor: pointer;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        details[open] summary {
+            background-color: #f9fafb;
+            color: var(--primary-color);
+            font-weight: bold;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        summary {
+            padding: 15px 20px;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--text-main);
+            transition: background 0.2s;
+        }
+
+        summary:hover {
+            background-color: #f0fdfa;
+        }
+
+        summary::-webkit-details-marker {
+            display: none;
+        }
+
+        summary::after {
+            content: '\f078';
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            font-size: 0.8rem;
+            transition: transform 0.2s;
+        }
+
+        details[open] summary::after {
+            transform: rotate(180deg);
+        }
+
+        .submenu {
+            background-color: #f9fafb;
+            padding: 5px 0;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px 10px 35px;
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+            background-color: #e0f2f1;
+        }
+
+        .nav-link.active-video {
+            color: var(--primary-color);
+            background-color: #ccfbf1;
+            font-weight: 600;
+            border-right: 4px solid var(--primary-color);
+        }
+
+        .nav-link i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* --- MAIN CONTENT AREA --- */
+        .main-content {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .header-bar {
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+        }
+
+        .header-bar h1 {
+            font-size: 1.8rem;
+            color: var(--text-main);
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            overflow: hidden;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+            background-color: black;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-details {
+            padding: 25px;
+        }
+
+        .video-details h2 {
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .video-details p {
+            color: var(--text-muted);
+            line-height: 1.6;
+            word-wrap: break-word; /* Ensures long URLs don't break layout */
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+                height: auto;
+                overflow: auto;
+            }
+            .sidebar {
+                width: 100%;
+                height: auto;
+                max-height: 300px;
+            }
+            .main-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="brand">
+            <h2>ITOS220-T</h2>
+            <span>Final Project</span>
+        </div>
+
+        <div class="nav-group">
+            <a class="nav-link" onclick="loadContent('home')">
+                <i class="fas fa-home"></i> Home
+            </a>
+            
+            <details open> <summary>Laboratory Activities</summary>
+                <div class="submenu">
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Active Directory: Creating Users', 'Learn how to set up users in AD.')">
+                        <i class="fas fa-users"></i> Creating Users
+                    </a>
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'DHCP Role & Joining Domain', 'Configuring DHCP and joining workstations.')">
+                        <i class="fas fa-network-wired"></i> DHCP & Domain
+                    </a>
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Application and Web Server', 'Setting up IIS and Application roles.')">
+                        <i class="fab fa-chrome"></i> App & Web Server
+                    </a>
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'RAID Installation', 'Step by step guide on RAID configuration.')">
+                        <i class="fas fa-hdd"></i> RAID Installation
+                    </a>
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Group Policy Management', 'Managing GPOs for organizational units.')">
+                        <i class="fas fa-folder-tree"></i> Group Policy
+                    </a>
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'File Server', 'Setting up file sharing and permissions.')">
+                        <i class="fas fa-file-alt"></i> File Server
+                    </a>
+                </div>
+            </details>
+
+            <details>
+                <summary>Windows Installation</summary>
+                <div class="submenu">
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Windows 95', 'Installation of Windows 95.')">
+                        <i class="fab fa-windows"></i> Windows 95
+                    </a>
+                    
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Windows 98', 'Installation of Windows 98.')">
+                        <i class="fab fa-windows"></i> Windows 98
+                    </a>
+
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Windows NT Installation', 'Windows NT 4 ISO Link: WinWorld: https://winworldpc.com/download/4162c2ba-c3b7-18c3-9a11-c3a4e284a2ef <br><br> Windows NT 4 SP6 ISO Link: https://winworldpc.com/download/f0ce02e5-cca7-11e7-a73f-fa163e9022f0')">
+                        <i class="fab fa-windows"></i> Windows NT
+                    </a>
+
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Windows 2000 Installation', 'Windows Server 2000 ISO Link: https://mega.nz/#!0VIBILTC!EYBAGK4_rm4mV-hBsoacv-HeK17aRTeAuYB-LvOoqS4 <br><br> WIN2000 PROD KEY: DDTPV-TXMX7-BBGJ9-WGY8K-B9GHM <br> Alternative Key: VXKC4-2B3YF-W9MFK-QB3DB-9Y7MB')">
+                        <i class="fab fa-windows"></i> Windows 2000
+                    </a>
+
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Windows ME Installation', 'Windows ME ISO Link: https://ggle.in/Cutpnh <br><br> WINME PROD KEY: GKDMG-XV6JQ-BVDB7-WQ7YY-VTQRD')">
+                        <i class="fab fa-windows"></i> Windows ME
+                    </a>
+
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Windows XP Installation', 'In this video, we will cover the following: <br> - Server installation')">
+                        <i class="fab fa-windows"></i> Windows XP
+                    </a>
+
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Windows Server 2003', 'Installation of Server 2003.')">
+                        <i class="fas fa-server"></i> Server 2003
+                    </a>
+
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Windows Vista Installation', 'Windows Vista ISO Link: https://archive.org/details/win-vista-ultimate-x64 <br><br> WINDOWS VISTA PROD KEY: X9HTF-MKJQQ-XK376-TJ7T4-76PKF')">
+                        <i class="fab fa-windows"></i> Windows Vista
+                    </a>
+
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Windows Server 2008 Installation', 'In this video, we will cover the following: <br> - Server installation <br> - Creating an Active Directory <br> - Installing a Domain Controller <br> - Installing a DNS')">
+                        <i class="fas fa-server"></i> Server 2008
+                    </a>
+
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Windows 7 Installation', 'In this video, we will cover the following: <br> - Server installation')">
+                        <i class="fab fa-windows"></i> Windows 7
+                    </a>
+
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Windows 8 Installation', 'Windows 8 ISO Link: https://www.techworm.net/2023/03/download-windows-8-1-iso-files.html <br><br> WINDOWS 8 PROD KEY: 46V6N-VCBYR-KT9KT-6Y4YF-QGJYH')">
+                        <i class="fab fa-windows"></i> Windows 8
+                    </a>
+
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Windows 10 Installation', 'Windows 10 ISO Link: https://www.microsoft.com/en-in/software-download/windows10')">
+                        <i class="fab fa-windows"></i> Windows 10
+                    </a>
+
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Windows 11 Installation', 'Windows 11 ISO Link: https://support.microsoft.com/en-us/windows/create-an-iso-file-for-windows-11-f2fe5a20-a186-4d1b-9ef8-59a2e0eb1178')">
+                        <i class="fab fa-windows"></i> Windows 11
+                    </a>
+                </div>
+            </details>
+
+            <details>
+                <summary>Finals: TUP-Taguig</summary>
+                <div class="submenu">
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Part 1: Domain Controller', 'Setting up the primary DC.')"><i class="fas fa-globe"></i> Part 1: Domain Controller</a>
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Part 2: Adding Users', 'Batch user creation process.')"><i class="fas fa-user-plus"></i> Part 2: Adding Users</a>
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Part 3: DHCP Server', 'Configuring scopes and leases.')"><i class="fas fa-database"></i> Part 3: DHCP Server</a>
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Part 4: File Sharing', 'Network shares and security.')"><i class="fas fa-copy"></i> Part 4: File Sharing</a>
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Part 5: RAID', 'Redundant Array of Independent Disks.')"><i class="fas fa-save"></i> Part 5: RAID</a>
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Part 6: Remote Desktop', 'RDP configuration.')"><i class="fas fa-desktop"></i> Part 6: Remote Desktop</a>
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Part 7: Web Server', 'Hosting the internal site.')"><i class="fas fa-globe-americas"></i> Part 7: Web Server</a>
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Part 8: Group Policies', 'Enforcing rules via GPO.')"><i class="fas fa-user-cog"></i> Part 8: Group Policies</a>
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Part 9: Windows Deployment', 'WDS and image deployment.')"><i class="fas fa-cogs"></i> Part 9: Windows Deployment</a>
+                </div>
+            </details>
+
+            <a class="nav-link" onclick="loadContent('about')">
+                <i class="fas fa-info-circle"></i> About
+            </a>
+
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="header-bar">
+            <h1 id="pageTitle">Welcome</h1>
+        </div>
+
+        <div class="video-card">
+            <div class="video-container">
+                <iframe id="mainPlayer" src="about:blank" allowfullscreen></iframe>
+            </div>
+            <div class="video-details">
+                <h2 id="videoTitle">Select a Module</h2>
+                <p id="videoDesc">Please choose a topic from the sidebar menu to begin the lesson.</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Function to play video and highlight active menu item
+        function playVideo(element, url, title, desc) {
+            // Update Video Player
+            document.getElementById('mainPlayer').src = url;
+            document.getElementById('videoTitle').textContent = title;
+            
+            // CRITICAL CHANGE: using innerHTML instead of textContent to allow <br> line breaks
+            document.getElementById('videoDesc').innerHTML = desc || "Watch the tutorial video above.";
+            
+            document.getElementById('pageTitle').textContent = "Learning Module";
+
+            // Highlight the sidebar item
+            const links = document.querySelectorAll('.nav-link');
+            links.forEach(link => link.classList.remove('active-video'));
+            element.classList.add('active-video');
+        }
+
+        // Simple content switcher for Home/About
+        function loadContent(page) {
+            const player = document.getElementById('mainPlayer');
+            const title = document.getElementById('videoTitle');
+            const desc = document.getElementById('videoDesc');
+            const pageHeader = document.getElementById('pageTitle');
+
+            // Reset active links
+            const links = document.querySelectorAll('.nav-link');
+            links.forEach(link => link.classList.remove('active-video'));
+
+            if (page === 'home') {
+                pageHeader.textContent = "Welcome";
+                title.textContent = "Operating Systems Final Project";
+                desc.textContent = "Navigate through the modules on the left to view the documentation and video evidence for Laboratory Activities, Windows Installation, and the Finals Domain project.";
+                player.src = "about:blank"; 
+            } else if (page === 'about') {
+                pageHeader.textContent = "About";
+                title.textContent = "Project Details";
+                desc.textContent = "This project was created by Ullyes Zabdiel Olorga from BSIT-NS-2A. It demonstrates proficiency in Operating Systems, Networking, and Server Administration.";
+                player.src = "about:blank";
+            }
+        }
+    </script>
+</body>
+</html>
