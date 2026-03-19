@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OS Project - Student Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -22,7 +23,8 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            /* CHANGED: Now using the modern Poppins font globally */
+            font-family: 'Poppins', sans-serif;
         }
 
         body {
@@ -45,22 +47,25 @@
         }
 
         .brand {
-            padding: 20px;
+            padding: 25px 20px;
             background-color: var(--primary-color);
             color: white;
             text-align: center;
         }
 
         .brand h2 {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
+            font-weight: 700;
             margin-bottom: 5px;
+            letter-spacing: 0.5px;
         }
 
         .brand span {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
+            font-weight: 300;
             opacity: 0.9;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
         }
 
         .nav-group {
@@ -75,7 +80,7 @@
         details[open] summary {
             background-color: #f9fafb;
             color: var(--primary-color);
-            font-weight: bold;
+            font-weight: 600;
             border-left: 4px solid var(--primary-color);
         }
 
@@ -85,9 +90,11 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-weight: 600;
+            font-weight: 500;
             color: var(--text-main);
             transition: background 0.2s;
+            font-size: 0.95rem;
+            letter-spacing: 0.3px;
         }
 
         summary:hover {
@@ -121,7 +128,8 @@
             padding: 10px 20px 10px 35px;
             text-decoration: none;
             color: var(--text-muted);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
+            font-weight: 400;
             transition: all 0.2s;
             cursor: pointer;
         }
@@ -139,12 +147,13 @@
         }
 
         .nav-link i {
-            margin-right: 10px;
+            margin-right: 12px;
             width: 20px;
             text-align: center;
+            font-size: 1.05rem;
         }
 
-        /* --- MAIN CONTENT AREA --- */
+        
         .main-content {
             flex: 1;
             padding: 40px;
@@ -158,8 +167,10 @@
         }
 
         .header-bar h1 {
-            font-size: 1.8rem;
+            font-size: 2rem;
+            font-weight: 600;
             color: var(--text-main);
+            letter-spacing: -0.5px;
         }
 
         .video-card {
@@ -188,17 +199,20 @@
         }
 
         .video-details {
-            padding: 25px;
+            padding: 25px 30px;
         }
 
         .video-details h2 {
             margin-bottom: 10px;
             color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1.4rem;
         }
 
         .video-details p {
             color: var(--text-muted);
-            line-height: 1.6;
+            line-height: 1.7;
+            font-weight: 400;
             word-wrap: break-word; /* Ensures long URLs don't break layout */
         }
 
@@ -237,20 +251,23 @@
                     <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Active Directory: Creating Users', 'Learn how to set up users in AD.')">
                         <i class="fas fa-users"></i> Creating Users
                     </a>
-                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'DHCP Role & Joining Domain', 'Configuring DHCP and joining workstations.')">
-                        <i class="fas fa-network-wired"></i> DHCP & Domain
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/oPef0xWtYL4', 'DHCP Role & Joining Domain (Part 1)', 'Configuring DHCP and joining workstations - Part 1.')">
+                        <i class="fas fa-network-wired"></i> DHCP & Domain (Pt 1)
                     </a>
-                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Application and Web Server', 'Setting up IIS and Application roles.')">
-                        <i class="fab fa-chrome"></i> App & Web Server
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/ybYYUCvd8NM', 'DHCP Role & Joining Domain (Part 2)', 'Configuring DHCP and joining workstations - Part 2.')">
+                        <i class="fas fa-network-wired"></i> DHCP & Domain (Pt 2)
                     </a>
-                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'RAID Installation', 'Step by step guide on RAID configuration.')">
-                        <i class="fas fa-hdd"></i> RAID Installation
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/juGczgpZGCs', 'Application and Web Server', 'Setting up IIS and Application roles.')">
+                        <i class="fab fa-chrome"></i> App & Web Server 
                     </a>
-                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Group Policy Management', 'Managing GPOs for organizational units.')">
-                        <i class="fas fa-folder-tree"></i> Group Policy
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/-lODqMrO128', 'RAID Installation', 'Step by step guide on RAID configuration.')">
+                        <i class="fas fa-hdd"></i> RAID Installation 
                     </a>
-                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'File Server', 'Setting up file sharing and permissions.')">
-                        <i class="fas fa-file-alt"></i> File Server
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/JfavQtdM9VYE', 'Group Policy Management', 'Managing GPOs for organizational units.')">
+                        <i class="fas fa-folder-tree"></i> Group Policy 
+                    </a>
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/tB8yQ4hXXws', 'File Server', 'Setting up file sharing and permissions.')">
+                        <i class="fas fa-file-alt"></i> File Server 
                     </a>
                 </div>
             </details>
@@ -258,23 +275,23 @@
             <details>
                 <summary>Windows Installation</summary>
                 <div class="submenu">
-                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Windows 95', 'Installation of Windows 95.')">
-                        <i class="fab fa-windows"></i> Windows 95
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/tVEo_LDk99A', 'Windows 95', 'Floppy Disc Link: https://winworldpc.com/download/db57f85a-f039-11e7-a562-fa163e9022f0Windows 95 ISO: https://winworldpc.com/download/df61214c-cca9-11e7-a73f-fa163e9022f0 If an error occurs after Windows 95 Installation, refer to this link below and download the FIX95CPU_V3_FINAL.ZIP and use the ISO file inside.https://msfn.org/board/topic/141402-windows-95-21ghz-cpu-limit-broken/WIN95 PROD KEY: 12095 0004226 12233')">
+                        <i class="fab fa-windows"></i> Windows 95 
                     </a>
                     
-                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Windows 98', 'Installation of Windows 98.')">
-                        <i class="fab fa-windows"></i> Windows 98
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/l2yyuwYw_vQ', 'Windows 98', 'In this video, we will go over the iInstallation of Windows 98.')">
+                        <i class="fab fa-windows"></i> Windows 98 
                     </a>
 
-                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Windows NT Installation', 'Windows NT 4 ISO Link: WinWorld: https://winworldpc.com/download/4162c2ba-c3b7-18c3-9a11-c3a4e284a2ef <br><br> Windows NT 4 SP6 ISO Link: https://winworldpc.com/download/f0ce02e5-cca7-11e7-a73f-fa163e9022f0')">
-                        <i class="fab fa-windows"></i> Windows NT
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/M_TZfmGq9T4', 'Windows NT Installation', 'Windows NT 4 ISO Link: WinWorld: https://winworldpc.com/download/4162c2ba-c3b7-18c3-9a11-c3a4e284a2ef <br><br> Windows NT 4 SP6 ISO Link: https://winworldpc.com/download/f0ce02e5-cca7-11e7-a73f-fa163e9022f0')">
+                        <i class="fab fa-windows"></i> Windows NT 
                     </a>
 
-                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Windows 2000 Installation', 'Windows Server 2000 ISO Link: https://mega.nz/#!0VIBILTC!EYBAGK4_rm4mV-hBsoacv-HeK17aRTeAuYB-LvOoqS4 <br><br> WIN2000 PROD KEY: DDTPV-TXMX7-BBGJ9-WGY8K-B9GHM <br> Alternative Key: VXKC4-2B3YF-W9MFK-QB3DB-9Y7MB')">
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/9yrTNwDbkiA', 'Windows 2000 Installation', 'Windows Server 2000 ISO Link: https://mega.nz/#!0VIBILTC!EYBAGK4_rm4mV-hBsoacv-HeK17aRTeAuYB-LvOoqS4 <br><br> WIN2000 PROD KEY: DDTPV-TXMX7-BBGJ9-WGY8K-B9GHM <br> Alternative Key: VXKC4-2B3YF-W9MFK-QB3DB-9Y7MB')">
                         <i class="fab fa-windows"></i> Windows 2000
                     </a>
 
-                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Windows ME Installation', 'Windows ME ISO Link: https://ggle.in/Cutpnh <br><br> WINME PROD KEY: GKDMG-XV6JQ-BVDB7-WQ7YY-VTQRD')">
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/zaUfQo9Dev4', 'Windows ME Installation', 'Windows ME ISO Link: https://ggle.in/Cutpnh <br><br> WINME PROD KEY: GKDMG-XV6JQ-BVDB7-WQ7YY-VTQRD')">
                         <i class="fab fa-windows"></i> Windows ME
                     </a>
 
@@ -282,27 +299,27 @@
                         <i class="fab fa-windows"></i> Windows XP
                     </a>
 
-                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Windows Server 2003', 'Installation of Server 2003.')">
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/5I6liY4G1Cs', 'Windows Server 2003', 'Installation of Server 2003.')">
                         <i class="fas fa-server"></i> Server 2003
                     </a>
 
-                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Windows Vista Installation', 'Windows Vista ISO Link: https://archive.org/details/win-vista-ultimate-x64 <br><br> WINDOWS VISTA PROD KEY: X9HTF-MKJQQ-XK376-TJ7T4-76PKF')">
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/Yoog4NeN-Ic', 'Windows Vista Installation', 'Windows Vista ISO Link: https://archive.org/details/win-vista-ultimate-x64 <br><br> WINDOWS VISTA PROD KEY: X9HTF-MKJQQ-XK376-TJ7T4-76PKF')">
                         <i class="fab fa-windows"></i> Windows Vista
                     </a>
 
-                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Windows Server 2008 Installation', 'In this video, we will cover the following: <br> - Server installation <br> - Creating an Active Directory <br> - Installing a Domain Controller <br> - Installing a DNS')">
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/h9XVq6csDSw', 'Windows Server 2008 Installation', 'In this video, we will cover the following: <br> - Server installation <br> - Creating an Active Directory <br> - Installing a Domain Controller <br> - Installing a DNS')">
                         <i class="fas fa-server"></i> Server 2008
                     </a>
 
-                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Windows 7 Installation', 'In this video, we will cover the following: <br> - Server installation')">
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/AXk5GWn5xKM', 'Windows 7 Installation', 'In this video, we will cover the following: <br> - Server installation')">
                         <i class="fab fa-windows"></i> Windows 7
                     </a>
 
-                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Windows 8 Installation', 'Windows 8 ISO Link: https://www.techworm.net/2023/03/download-windows-8-1-iso-files.html <br><br> WINDOWS 8 PROD KEY: 46V6N-VCBYR-KT9KT-6Y4YF-QGJYH')">
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/Ar6y6e46yMY', 'Windows 8 Installation', 'Windows 8 ISO Link: https://www.techworm.net/2023/03/download-windows-8-1-iso-files.html <br><br> WINDOWS 8 PROD KEY: 46V6N-VCBYR-KT9KT-6Y4YF-QGJYH')">
                         <i class="fab fa-windows"></i> Windows 8
                     </a>
 
-                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Windows 10 Installation', 'Windows 10 ISO Link: https://www.microsoft.com/en-in/software-download/windows10')">
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/UChvlCTt9r4', 'Windows 10 Installation', 'Windows 10 ISO Link: https://www.microsoft.com/en-in/software-download/windows10')">
                         <i class="fab fa-windows"></i> Windows 10
                     </a>
 
@@ -315,11 +332,11 @@
             <details>
                 <summary>Finals: TUP-Taguig</summary>
                 <div class="submenu">
-                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Part 1: Domain Controller', 'Setting up the primary DC.')"><i class="fas fa-globe"></i> Part 1: Domain Controller</a>
-                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Part 2: Adding Users', 'Batch user creation process.')"><i class="fas fa-user-plus"></i> Part 2: Adding Users</a>
-                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Part 3: DHCP Server', 'Configuring scopes and leases.')"><i class="fas fa-database"></i> Part 3: DHCP Server</a>
-                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Part 4: File Sharing', 'Network shares and security.')"><i class="fas fa-copy"></i> Part 4: File Sharing</a>
-                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Part 5: RAID', 'Redundant Array of Independent Disks.')"><i class="fas fa-save"></i> Part 5: RAID</a>
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/CsqYPH6Em5k', 'Part 1: Domain Controller', 'Setting up the primary DC.')"><i class="fas fa-globe"></i> Part 1: Domain Controller</a>
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/u4iFit-ejUw', 'Part 2: Adding Users', 'Batch user creation process.')"><i class="fas fa-user-plus"></i> Part 2: Adding Users</a>
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/uXEDLIIsErA', 'Part 3: DHCP Server', 'Configuring scopes and leases.')"><i class="fas fa-database"></i> Part 3: DHCP Server</a>
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/_XeuowWy90w', 'Part 4: File Sharing', 'Network shares and security.')"><i class="fas fa-copy"></i> Part 4: File Sharing</a>
+                    <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/0RdLrqo4_Q8', 'Part 5: RAID', 'Redundant Array of Independent Disks.')"><i class="fas fa-save"></i> Part 5: RAID</a>
                     <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Part 6: Remote Desktop', 'RDP configuration.')"><i class="fas fa-desktop"></i> Part 6: Remote Desktop</a>
                     <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Part 7: Web Server', 'Hosting the internal site.')"><i class="fas fa-globe-americas"></i> Part 7: Web Server</a>
                     <a class="nav-link" onclick="playVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_HERE', 'Part 8: Group Policies', 'Enforcing rules via GPO.')"><i class="fas fa-user-cog"></i> Part 8: Group Policies</a>
@@ -336,7 +353,7 @@
 
     <main class="main-content">
         <div class="header-bar">
-            <h1 id="pageTitle">Welcome</h1>
+            <h1 id="pageTitle">Welcome to my Operating Systems Website!</h1>
         </div>
 
         <div class="video-card">
@@ -345,24 +362,24 @@
             </div>
             <div class="video-details">
                 <h2 id="videoTitle">Select a Module</h2>
-                <p id="videoDesc">Please choose a topic from the sidebar menu to begin the lesson.</p>
+                <p id="videoDesc">Choose a topic from the sidebar menu to begin the lessons.</p>
             </div>
         </div>
     </main>
 
     <script>
-        // Function to play video and highlight active menu item
+        
         function playVideo(element, url, title, desc) {
-            // Update Video Player
+           
             document.getElementById('mainPlayer').src = url;
             document.getElementById('videoTitle').textContent = title;
             
-            // CRITICAL CHANGE: using innerHTML instead of textContent to allow <br> line breaks
+           
             document.getElementById('videoDesc').innerHTML = desc || "Watch the tutorial video above.";
             
             document.getElementById('pageTitle').textContent = "Learning Module";
 
-            // Highlight the sidebar item
+           
             const links = document.querySelectorAll('.nav-link');
             links.forEach(link => link.classList.remove('active-video'));
             element.classList.add('active-video');
